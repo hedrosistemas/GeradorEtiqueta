@@ -20,6 +20,7 @@ x=int(input())
 initial=0
 final=0
 lista=[]
+
 if x==1:
     print("Para finalizar a lista digite '-1'.")
     print("Escolhido Lista, digitar os numeros:")
@@ -37,9 +38,10 @@ if x==2:
     for i in range(initial,final):
         lista.append(i)
 
-name = 'impressao_grafica.pdf'
+name = './pdfs/impressao_grafica.pdf'
 
 path = os.getcwd()
+
 for i in lista:
     qr = qrcode.QRCode(
         version=1,
