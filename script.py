@@ -59,19 +59,13 @@ for i in lista:
 base_pdf = 'base.pdf'
 output_pdf = 'final.pdf'
 
-images = os.listdir('qrcodes')
-
-arr = [int(numeric_string) for numeric_string in images]
-
-images = np.sort(arr)
-
 pdf = PdfReader(base_pdf)
 
 count = 0
 
 output = PdfWriter()
 
-for i in images:
+for i in lista:
     output.add_page(pdf.pages[0])
 
 outputStream = open(output_pdf, "wb")
@@ -81,7 +75,7 @@ outputStream.close()
 out_canvas = 'infos.pdf'
 pdf_canvas = canvas.Canvas(out_canvas)
     
-for i in images:
+for i in lista:
     pdf_canvas.setPageSize((45*mm, 51*mm))
     pdf_canvas.setFont('Exo2', 12)
     pdf_canvas.rotate(0)
@@ -102,13 +96,13 @@ pdf_canvas = PdfReader('infos.pdf')
 output2 = PdfWriter()
 count = 0
 
-for i in images:
+for i in lista:
     
     pdf_base.pages[count].merge_page(pdf_canvas.pages[count])
     output2.add_page(pdf_base.pages[count])
     count = count+1
 
 output2.add_page(pdf.pages[1])
-outputStream = open('lista_impressao', "wb")
+outputStream = open('lista_impressao.pdf', "wb")
 output2.write(outputStream)
 outputStream.close()
