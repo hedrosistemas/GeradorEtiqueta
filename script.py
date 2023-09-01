@@ -101,7 +101,7 @@ for i in lista:
     output2.add_page(pdf_base.pages[count])
     count = count+1
 
-output2.add_page(pdf.pages[-1])
+output2.add_page(pdf.pages[1])
 outputStream = open('lista_impressao.pdf', "wb")
 output2.write(outputStream)
 outputStream.close()
