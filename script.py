@@ -60,7 +60,7 @@ for i in lista:
         error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=15,
         border=0)
-    link = "http://meusensor.hedro.com.br/?id="+str(i).zfill(5)
+    link = "https://sensor.hedro.com.br?sn="+str(i).zfill(5)
     qr.add_data(link)
     qr.make()
     img = qr.make_image(fill_color="black", back_color="transparent")
