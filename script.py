@@ -4,7 +4,7 @@ import os
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.colors import white,red
+from reportlab.lib.colors import white,red,black
 from reportlab.lib.units import mm
 from PyPDF2 import PdfWriter, PdfReader
 import io
@@ -34,7 +34,7 @@ if x==2:
     print("Digitar o inicio:")
     initial=int(input())
     print("Digitar o Fim:")
-    final=int(input())+1
+    final=int(input())
     for i in range(initial,final):
         lista.append(i)
 
@@ -56,7 +56,7 @@ for i in lista:
     img.save(name)
 # # adicionar as fontes que vou usar no projeto
 
-base_pdf = 'base.pdf'
+base_pdf = 'base_h13.pdf'
 output_pdf = 'final.pdf'
 
 pdf = PdfReader(base_pdf)
@@ -80,11 +80,11 @@ for i in lista:
     pdf_canvas.setFont('Exo2', 12)
     pdf_canvas.rotate(0)
     name = path+"/qrcodes/"+str(i)
-    pdf_canvas.drawImage(name, 39, -145, width=50,
+    pdf_canvas.drawImage(name, 32, -150, width=64,
                          preserveAspectRatio=True, mask='auto')
-    pdf_canvas.rotate(45)
-    pdf_canvas.setFillColor(white)
-    pdf_canvas.drawString(78, -45, str(i).zfill(5))
+    pdf_canvas.rotate(90)
+    pdf_canvas.setFillColor(black)
+    pdf_canvas.drawString(40, -25, str(i).zfill(5))
     pdf_canvas.rotate(0)
     pdf_canvas.showPage()
 
@@ -97,12 +97,11 @@ output2 = PdfWriter()
 count = 0
 
 for i in lista:
-    
     pdf_base.pages[count].merge_page(pdf_canvas.pages[count])
     output2.add_page(pdf_base.pages[count])
     count = count+1
 
-output2.add_page(pdf.pages[1])
+output2.add_page(pdf.pages[-1])
 outputStream = open('lista_impressao.pdf', "wb")
 output2.write(outputStream)
 outputStream.close()
