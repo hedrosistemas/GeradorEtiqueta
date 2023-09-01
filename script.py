@@ -110,7 +110,7 @@ if sensor_base==2:
                             preserveAspectRatio=True, mask='auto')
         pdf_canvas.rotate(90)
         pdf_canvas.setFillColor(black)
-        pdf_canvas.drawString(40, -25, str(i).zfill(5))
+        pdf_canvas.drawString(40, -28, str(i).zfill(5))
         pdf_canvas.rotate(0)
         pdf_canvas.showPage()
 
