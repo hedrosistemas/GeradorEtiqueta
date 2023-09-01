@@ -12,6 +12,18 @@ pdfmetrics.registerFont(TTFont('Exo2', 'Exo2-Regular.ttf'))
 import numpy as np 
 
 print("Gerador de etiquetas!!!")
+
+print("Etiqueta para:")
+print("1 - H1.2")
+print("2 - H1.3")
+sensor_base=int(input())
+
+if sensor_base==1:
+    base_pdf = 'base_h12.pdf'
+if sensor_base==2:
+    base_pdf = 'base_h13.pdf'
+
+
 print("Escolha o tipo de geração:")
 print("1 -Lista")
 print("2 -Sequencia")
@@ -56,7 +68,7 @@ for i in lista:
     img.save(name)
 # # adicionar as fontes que vou usar no projeto
 
-base_pdf = 'base_h13.pdf'
+
 output_pdf = 'final.pdf'
 
 pdf = PdfReader(base_pdf)
@@ -74,19 +86,33 @@ outputStream.close()
 
 out_canvas = 'infos.pdf'
 pdf_canvas = canvas.Canvas(out_canvas)
-    
-for i in lista:
-    pdf_canvas.setPageSize((45*mm, 51*mm))
-    pdf_canvas.setFont('Exo2', 12)
-    pdf_canvas.rotate(0)
-    name = path+"/qrcodes/"+str(i)
-    pdf_canvas.drawImage(name, 32, -150, width=64,
-                         preserveAspectRatio=True, mask='auto')
-    pdf_canvas.rotate(90)
-    pdf_canvas.setFillColor(black)
-    pdf_canvas.drawString(40, -25, str(i).zfill(5))
-    pdf_canvas.rotate(0)
-    pdf_canvas.showPage()
+
+if sensor_base==1:
+    for i in lista:
+        pdf_canvas.setPageSize((45*mm, 51*mm))
+        pdf_canvas.setFont('Exo2', 12)
+        pdf_canvas.rotate(0)
+        name = path+"/qrcodes/"+str(i)
+        pdf_canvas.drawImage(name, 39, -145, width=50,
+                            preserveAspectRatio=True, mask='auto')
+        pdf_canvas.rotate(45)
+        pdf_canvas.setFillColor(white)
+        pdf_canvas.drawString(78, -45, str(i).zfill(5))
+        pdf_canvas.rotate(0)
+        pdf_canvas.showPage()
+if sensor_base==2:       
+    for i in lista:
+        pdf_canvas.setPageSize((45*mm, 51*mm))
+        pdf_canvas.setFont('Exo2', 12)
+        pdf_canvas.rotate(0)
+        name = path+"/qrcodes/"+str(i)
+        pdf_canvas.drawImage(name, 32, -150, width=64,
+                            preserveAspectRatio=True, mask='auto')
+        pdf_canvas.rotate(90)
+        pdf_canvas.setFillColor(black)
+        pdf_canvas.drawString(40, -25, str(i).zfill(5))
+        pdf_canvas.rotate(0)
+        pdf_canvas.showPage()
 
 pdf_canvas.save()
 
