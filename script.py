@@ -14,21 +14,22 @@ import numpy as np
 print("Gerador de etiquetas!!!")
 
 print("Etiqueta para:")
-print("1 - H1.2")
-print("2 - H1.3")
+print("1 - H1.1")
+print("2 - H1.2")
+print("3 - H1.3")
 sensor_base=int(input())
 
 if sensor_base==1:
-    base_pdf = 'base_h12.pdf'
+    base_pdf = 'base_h11.pdf'
 if sensor_base==2:
+    base_pdf = 'base_h12.pdf'
+if sensor_base==3:
     base_pdf = 'base_h13.pdf'
-
 
 print("Escolha o tipo de geração:")
 print("1 -Lista")
 print("2 -Sequencia")
 x=int(input())
-
 initial=0
 final=0
 lista=[]
@@ -89,6 +90,15 @@ pdf_canvas = canvas.Canvas(out_canvas)
 
 if sensor_base==1:
     for i in lista:
+        pdf_canvas.setPageSize((25*mm, 15*mm))
+        pdf_canvas.setFont('Exo2', 12)
+        pdf_canvas.rotate(0)
+        pdf_canvas.setFillColor(black)
+        pdf_canvas.drawString(10, 16, str(i).zfill(5))
+        pdf_canvas.rotate(0)
+        pdf_canvas.showPage()
+if sensor_base==2:
+    for i in lista:
         pdf_canvas.setPageSize((45*mm, 51*mm))
         pdf_canvas.setFont('Exo2', 12)
         pdf_canvas.rotate(0)
@@ -100,7 +110,7 @@ if sensor_base==1:
         pdf_canvas.drawString(78, -45, str(i).zfill(5))
         pdf_canvas.rotate(0)
         pdf_canvas.showPage()
-if sensor_base==2:       
+if sensor_base==3:       
     for i in lista:
         pdf_canvas.setPageSize((45*mm, 51*mm))
         pdf_canvas.setFont('Exo2', 12)
