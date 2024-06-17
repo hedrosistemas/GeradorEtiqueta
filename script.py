@@ -11,6 +11,7 @@ import io
 pdfmetrics.registerFont(TTFont('Exo2', 'Exo2-Regular.ttf'))
 import numpy as np 
 
+
 print("Gerador de etiquetas!!!")
 
 print("Etiqueta para:")
