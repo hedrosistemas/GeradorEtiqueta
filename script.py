@@ -18,6 +18,7 @@ print("Etiqueta para:")
 print("1 - H1.1")
 print("2 - H1.2")
 print("3 - H1.3")
+
 sensor_base=int(input())
 
 if sensor_base==1:
@@ -30,7 +31,9 @@ if sensor_base==3:
 print("Escolha o tipo de geração:")
 print("1 -Lista")
 print("2 -Sequencia")
+
 x=int(input())
+
 initial=0
 final=0
 lista=[]
@@ -46,9 +49,13 @@ if x==1:
 if x==2:
     print("Escolhido Sequencia:")
     print("Digitar o inicio:")
+
     initial=int(input())
+
     print("Digitar o Fim:")
+
     final=int(input())
+
     for i in range(initial,final):
         lista.append(i)
 
@@ -68,8 +75,6 @@ for i in lista:
     img = qr.make_image(fill_color="black", back_color="transparent")
     name = path+"/qrcodes/"+str(i)
     img.save(name)
-# # adicionar as fontes que vou usar no projeto
-
 
 output_pdf = 'final.pdf'
 
@@ -117,7 +122,7 @@ if sensor_base==3:
         pdf_canvas.setFont('Exo2', 12)
         pdf_canvas.rotate(0)
         name = path+"/qrcodes/"+str(i)
-        pdf_canvas.drawImage(name, 32, -150, width=64,
+        pdf_canvas.drawImage(name, 37, -150, width=55,
                             preserveAspectRatio=True, mask='auto')
         pdf_canvas.rotate(90)
         pdf_canvas.setFillColor(black)
