@@ -9,6 +9,7 @@ from reportlab.lib.units import mm
 from PyPDF2 import PdfWriter, PdfReader
 import io
 pdfmetrics.registerFont(TTFont('Exo2', 'Exo2-Regular.ttf'))
+pdfmetrics.registerFont(TTFont('OpenSans', 'OpenSans-Bold.ttf'))
 import numpy as np 
 
 
@@ -18,6 +19,7 @@ print("Etiqueta para:")
 print("1 - H1.1")
 print("2 - H1.2")
 print("3 - H1.3")
+print("4 - Laminador")
 
 sensor_base=int(input())
 
@@ -27,12 +29,15 @@ if sensor_base==2:
     base_pdf = 'base_h12.pdf'
 if sensor_base==3:
     base_pdf = 'base_h13.pdf'
+if sensor_base==4:
+    base_pdf = 'base_h13_lam.pdf'
 
 print("Escolha o tipo de geração:")
 print("1 -Lista")
 print("2 -Sequencia")
 
 x=int(input())
+# x=2
 
 initial=0
 final=0
@@ -56,7 +61,7 @@ if x==2:
 
     final=int(input())
 
-    for i in range(initial,final):
+    for i in range(initial,final+1):
         lista.append(i)
 
 name = './pdfs/impressao_grafica.pdf'
@@ -83,9 +88,13 @@ pdf = PdfReader(base_pdf)
 count = 0
 
 output = PdfWriter()
-
-for i in lista:
-    output.add_page(pdf.pages[0])
+if sensor_base != 4:
+    for i in lista:
+        output.add_page(pdf.pages[0])
+else:
+    for i in lista:
+        output.add_page(pdf.pages[0])
+        output.add_page(pdf.pages[0])
 
 outputStream = open(output_pdf, "wb")
 output.write(outputStream)
@@ -129,7 +138,32 @@ if sensor_base==3:
         pdf_canvas.drawString(40, -28, str(i).zfill(5))
         pdf_canvas.rotate(0)
         pdf_canvas.showPage()
-
+if sensor_base==4:       
+    for i in lista:
+        # entry
+        pdf_canvas.setPageSize((45*mm, 51*mm))
+        pdf_canvas.setFont('OpenSans', 16)
+        pdf_canvas.rotate(0)
+        pdf_canvas.setFillColor(black)
+        pdf_canvas.drawString(80, 47, 'E')
+        cage = "G"+str(i)
+        pdf_canvas.setFont('OpenSans', 24)
+        pdf_canvas.rotate(0)
+        pdf_canvas.setFillColor(black)
+        pdf_canvas.drawString(40, 65, cage)
+        pdf_canvas.showPage()
+        # left
+        pdf_canvas.setPageSize((45*mm, 51*mm))
+        pdf_canvas.setFont('OpenSans', 16)
+        pdf_canvas.rotate(0)
+        pdf_canvas.setFillColor(black)
+        pdf_canvas.drawString(80, 47, 'S')
+        cage = "G"+str(i)
+        pdf_canvas.setFont('OpenSans', 24)
+        pdf_canvas.rotate(0)
+        pdf_canvas.setFillColor(black)
+        pdf_canvas.drawString(40, 65, cage)
+        pdf_canvas.showPage()
 pdf_canvas.save()
 
 pdf_base = PdfReader('final.pdf')
@@ -137,8 +171,10 @@ pdf_canvas = PdfReader('infos.pdf')
 
 output2 = PdfWriter()
 count = 0
+i=0
+num_pages = pdf_base._get_num_pages()
 
-for i in lista:
+for i in range(num_pages):
     pdf_base.pages[count].merge_page(pdf_canvas.pages[count])
     output2.add_page(pdf_base.pages[count])
     count = count+1
