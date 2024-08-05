@@ -140,13 +140,16 @@ if sensor_base==3:
         pdf_canvas.showPage()
 if sensor_base==4:       
     for i in lista:
+        if(i<10):
+            cage = "G"+"0"+str(i)
+        else:
+            cage = "G"+str(i)
         # entry
         pdf_canvas.setPageSize((45*mm, 51*mm))
         pdf_canvas.setFont('OpenSans', 16)
         pdf_canvas.rotate(0)
         pdf_canvas.setFillColor(black)
         pdf_canvas.drawString(80, 47, 'E')
-        cage = "G"+str(i)
         pdf_canvas.setFont('OpenSans', 24)
         pdf_canvas.rotate(0)
         pdf_canvas.setFillColor(black)
@@ -158,7 +161,6 @@ if sensor_base==4:
         pdf_canvas.rotate(0)
         pdf_canvas.setFillColor(black)
         pdf_canvas.drawString(80, 47, 'S')
-        cage = "G"+str(i)
         pdf_canvas.setFont('OpenSans', 24)
         pdf_canvas.rotate(0)
         pdf_canvas.setFillColor(black)
